@@ -9,7 +9,22 @@ print(" - Downloads")
 print(" - Documents")
 print(" - Same folder where this python script is saved")
 print("")
-filename = input("Enter the name of the .txt or .docx file: ")
+filename = input("Enter the name of the .txt or .docx file: ").strip().strip('"').strip("'")
+
+possible_names = [filename]
+if not filename.lower().endswith((".txt", ".docx")):
+    possible_names = [filename + ".txt", filename + ".docx"]
+
+filepath = None
+for path in possible_names:
+    if os.path.isfile(path):
+        filepath = path
+        break
+if filepath is None:
+    name_only = os.path.basename(filename)
+    possible_names = [name_only]
+    if not name_only.lower().endswith((".txt", ".docx")):
+        possible_names = [name_only + ".txt", name_only + ".docx"]
 
 home = os.path.expanduser("~")
 folders = [
@@ -19,11 +34,6 @@ folders = [
     os.path.join(home, "Documents"),
 ]
 
-possible_names = [filename]
-if not filename.lower().endswith((".txt", ".docx")):
-    possible_names = [filename + ".txt", filename + ".docx"]
-
-filepath = None
 for root_folder in folders:
     for current_folder, subfolders, files in os.walk(root_folder):
         for name in possible_names:
