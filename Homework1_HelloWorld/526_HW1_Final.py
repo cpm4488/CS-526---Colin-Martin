@@ -10,6 +10,7 @@ print(" - Documents")
 print(" - Same folder where this python script is saved")
 print("")
 filename = input("Enter the name of the .txt or .docx file: ").strip().strip('"').strip("'")
+filename = filename.replace("\\ ", " ")
 
 possible_names = [filename]
 if not filename.lower().endswith((".txt", ".docx")):
