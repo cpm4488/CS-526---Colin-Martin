@@ -1,15 +1,21 @@
 526 HW Instructions - 
 
 Part 1 - Introduction 
-
 File is located in this folder named "HW1 - Introduction"
 
 
-Part 2 - Hello World Execution
+Part 2 - Hello World Coding Assignment
 
-Notes- 
+Implementation:
 
-- This script will read any .docx or .txt file located within the Desktop, Documents, Downloads, or the folder which 526_HW1_Final.py is saved. 
+Check whether the input file is a .txt or a .docx by looking at the extension and read them based on the file type. The script will read .txt files as plain text and will use the docx library to read the .docx files.
+
+Search most common folders and subfolders (Desktop, Documents, and Downloads) by default to only require a file path as the input if it is not found within any of these folders or wherever the .py file is stored. The pasted file path also would need to replace elements unique to Windows or Mac to make it readable in the search. 
+
+Error messages will be printed if unsupported file types are used or if a file isn't found.
+
+Execution Notes- 
+- This script search for and read any .docx or .txt file located within a subfolder or directly inside the Desktop, Documents, Downloads, or the folder which 526_HW1_Final.py is saved. 
 - If the file is saved in another folder, copy the file as a path and paste it into the input section that opens in the command prompt after running the file.
 - Document extensions (.txt, .docx) are not required in the file input.
 
