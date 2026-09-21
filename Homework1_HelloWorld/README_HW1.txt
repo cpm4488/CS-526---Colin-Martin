@@ -20,7 +20,7 @@ Execution Notes-
 - Document extensions (.txt, .docx) are not required in the file input.
 
 Execution Steps:
-	1) Download the 526_HW1_Final.py locally to your laptop.
+	1) Download the 526_HW1_Final.py locally to your computer.
 	2) Ensure that python is installed and connected to the software you'll be running the script on
 	3) In your systems terminal line, run one of the following scripts to install the docx package
 		- "python3 -m pip install python-docx"
