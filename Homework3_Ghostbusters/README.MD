@@ -26,7 +26,7 @@ How to run (command prompt):
 Problem 2-----------
 
 Introduction:
-
+Find every unique substring of a string read from an input text file, using recursion. This program prints each unique substring in alphabetical order and counts the total number of unique substrings for the text input. 
 Algorithm:
 
 Interesting Facts:
