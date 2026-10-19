@@ -1,6 +1,7 @@
 In Progress-
 
 Problem 1-----------
+
 Introduction: 
 Determine whether each line of an input text file is a palindrome and output True/False for each line and count each instance where is_palindrone(str) = True
 
@@ -21,3 +22,14 @@ How to run (command prompt):
 1) cd C:\Users\... <- this should point to where you saved the files
 2a) python3 problem1_v3.py < palindrome_input.txt
 2b) python3 problem1_v3.py 
+
+Problem 2-----------
+
+Introduction:
+
+Algorithm:
+
+Interesting Facts:
+
+How to run:
+
