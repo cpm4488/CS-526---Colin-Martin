@@ -1,0 +1,4 @@
+paste palendrome examples from resources table
+abcddcba
+aansawf
+frerf
