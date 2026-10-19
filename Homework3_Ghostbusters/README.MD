@@ -43,3 +43,24 @@ How to run (command prompt):
 1) cd C:\Users\... <- this should point to where you saved the files
 2a) python3 problem2.py < problem2_input.txt
 2b) python3 problem2.py
+
+Problem 3-----------
+
+Introduction:
+My program uses recursion to reverse a stack implemented as an array, singly linked list, and a doubly linked list. The program pushes the numbers 1-10 into a stack, prints the stack, reverses, and then prints the reversal. Each stack supports push, pop, peek, and is_empty
+
+Algorithm:
+Classes are created for each stack type, with the core of each being the recursive reverse_from function for each class. 
+ArrayStack.reverse_from(low,high) - this swaps the low and high position, then calls itself on low+1 and high-1, moving inward until the low and high meet in the middle.
+
+SinglyLinkedStack reverse_from(prev, node)- reverse() starts reverse_from() at the head with prev set to None. Each call points the current node's next back at the previous node, then calls itself on the following node. Since prev starts as None, the old head becomes the new tail with its next set to None. When reverse_from() runs past the last node, it returns the old bottom node, and reverse() sets it as the new head.
+
+DoublyLinkedStack.reverse_from(node) - this recursive function swaps a nodes prev and next, then calls itself on the following node. Once each node has the prev and next swapped, reverse() swaps the head and tail.
+
+Interesting Facts:
+- HW2 was the first time I created a linkedlist, which helped lay out some of the foundational structures with this one. 
+- No new stacks are created when the reveral happens for these. The reversal functions are acting on the existing stack rather than reading it backwards.
+
+How to run (command prompt):
+1) cd C:\Users\... <- this should point to where you saved the file
+2) python3 problem3_v3.py
