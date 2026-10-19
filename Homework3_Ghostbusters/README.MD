@@ -28,8 +28,18 @@ Problem 2-----------
 Introduction:
 Find every unique substring of a string read from an input text file, using recursion. This program prints each unique substring in alphabetical order and counts the total number of unique substrings for the text input. 
 Algorithm:
+My unique_sustrings program searches using two levels of recursion and going through each pair, determines which are unique, sorts them, prints, and then counts the results. 
+Recursion- 
+1) collect_from(text, start, end, found) - this recursive function sets a starting point in the string and adds text[start:end] to found. It then calls itself on end + 1 to make the substring one character longer. It stops once end goes past the last position of the string.  
+2) collect(text, start, found) - this recursive function calls collect_from() on each starting point by calling itself on start+1, finding all of the start and end points for a string. These two recursive functions working together will go through each start and end point where start < end
+Remove dupes and Sort-
+found is a set, and a set only keeps one copy of each value. Every substring is added to found, and when a substring that's already there is added again (like "ab" in "abcab"), the set ignores it. After the recursion finishes, sorted(found) puts the substrings in alphabetical order, and len() gives the total count.
 
 Interesting Facts:
+- Similarly to problem1, this program runs on standard input when directed, but if not directed to a specific file it will look for problem2_input.txt and run that if in the same folder.
+- Having two levels of recursion here allows for cleaner running of the program, completing one starting position at a time and not continuing to the next starting position until the end string is reached from the previous starting point. I liked this method because it follows the same rules I was following subconsciously when writing this out (ex: input = car -> c, ca, car, a, ar...)
 
-How to run:
-
+How to run (command prompt):
+1) cd C:\Users\... <- this should point to where you saved the files
+2a) python3 problem2.py < problem2_input.txt
+2b) python3 problem2.py
