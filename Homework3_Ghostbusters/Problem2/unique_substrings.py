@@ -4,24 +4,24 @@ import sys
 INPUT_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), "problem2_input.txt")
 
 # substrings starting at start
-def _collect_from(text, start, end, found):
+def collect_from(text, start, end, found):
     if end > len(text):
         return
     found.add(text[start:end])
-    _collect_from(text, start, end + 1, found)
+    collect_from(text, start, end + 1, found)
 
 #substrings from each start
-def _collect(text, start, found):
+def collect(text, start, found):
     if start >= len(text):
         return
     # All substrings from here
-    _collect_from(text, start, start + 1, found)
-    _collect(text, start + 1, found)
+    collect_from(text, start, start + 1, found)
+    collect(text, start + 1, found)
 
 # only unique substrings, alphabetical order
 def find_substrings(text):
     found = set()
-    _collect(text, 0, found)
+    collect(text, 0, found)
     return sorted(found)
 
 # read, find, and print results
