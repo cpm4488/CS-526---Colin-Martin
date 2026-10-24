@@ -1,4 +1,4 @@
-In Progress-
+Note: The resources, script, and test data for each problem can be found in the folders created for them 
 
 Problem 1-----------
 
@@ -64,3 +64,31 @@ Interesting Facts:
 How to run (command prompt):
 1) cd C:\Users\... <- this should point to where you saved the file
 2) python3 problem3_v3.py
+
+Problem 4-----------
+
+Introduction: With n Ghostbuster and ghost pairs from an input text file, if they shot an infinitely long beam, would the busters be able to eliminate all ghosts in one shot without intersecting? Simply said, are the lines between all busters and their paired ghosts parallel? If the lines are all parallel, the program prints "All Ghosts: were eliminated" if their beams cross, it will print "All Ghosts: were not eliminated".
+
+Algorithm: 
+The core of this algorithm is built off using the fractions module to compute the rise over run from buster(n) to ghost(n), then checking to see if any of the slopes did not match. The catch with only using slopes to compare is that two streams with the same slope can be on the same line, which counts as crossing, so it also checks that no two streams share a y-intercept. 
+
+slope(bx, by, gx, gy) - This finds the rise (gy - by) and the run (gx - bx) and returns rise/run. If the run is 0 the stream is vertical, so instead of dividing by 0 it returns "vertical". I used Fraction so the slope stays exact (ex: 1/3 stays 1/3 instead of 0.333...). 
+
+intercept(bx, by, m) - This returns the y-intercept of the stream's line using b = y - mx. For a vertical stream there isn't a y-intercept, so it returns the x value instead, since every vertical line has its own x. 
+
+all_eliminated(pairs) - This builds a list of every stream's slope. If the set of slopes has more than one value, the streams aren't parallel and it returns False. If all the slopes match, it builds a list of every stream's intercept. A set only keeps one copy of each value, so if the set of intercepts is shorter than the list, two streams are on the same line and it returns False. Otherwise it returns True. 
+
+read_pairs() / solve() - read_pairs() reads n from the first line, then pulls the four numbers out of each "B <x> <y> G <x> <y>" line. solve() runs all_eliminated() on standard input and prints the result.
+
+Interesting Facts:
+
+Unlike problems 1 and 2, this program only runs on standard input, so the input file is always entered in the command. I left out the default file fallback to keep the program shorter.
+My first idea was to only compare slopes, but that gets two of the examples wrong. B 0 0 G 2 2 and B 5 5 G 7 7 both have a slope of 1, but they're on the same line so the ghosts were not eliminated, which is why the intercept check is needed. B 1 0 G 1 6 has a run of 0, which would crash on divide by zero, which is why vertical streams are handled separately.
+Using Fraction instead of normal division means there are no floating point rounding errors when comparing slopes and intercepts.
+ghostbusters_input_10.txt is the same as ghostbusters_input_9.txt with the last pair repeated. Input 9 is eliminated, but input 10 is not, since the repeated pair has the same slope and the same intercept.
+Besides the provided input files, I added the 4 examples from the assignment and 4 edge cases (a single Ghostbuster, vertical streams on the same line, parallel streams pointing in opposite directions, and a fraction slope). I also checked every input against a separate brute force version that compares every pair of streams, and they all matched.
+
+How to run (command prompt):
+
+cd C:\Users... <- this should point to where you saved the files
+python3 ghostbusters.py < ghostbusters_input_1.txt <- any of the input files in the Problem4 folder can be used here
