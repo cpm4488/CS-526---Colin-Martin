@@ -1,3 +1,4 @@
+Part 1)
                  A
              /   |   \
            B     C     D
@@ -9,3 +10,13 @@
 A) preorder tree traversal = A -> B -> E -> H -> F -> I -> C -> D -> G
 B) breadth-first tree traversal = A -> B -> C -> D -> E -> F -> G -> H -> I
 C) post tree traversal = H -> E -> I -> F -> B -> C -> G -> D -> A 
+
+Part 2)
+                 A
+               /   \
+             B       C
+            / \       \
+           D   E       F
+            \         / \
+             G       H   I
+A) In-order tree traversal = D -> G -> B -> E -> A -> C -> H -> F -> I  
