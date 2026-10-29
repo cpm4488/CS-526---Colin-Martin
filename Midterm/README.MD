@@ -59,3 +59,26 @@ Input data is processed in the solve() function, then the starting infected coor
 1) cd C:\Users\... <- this should point to where you saved the files
 2) python3 Q2_Pandemic.py < pandemic_input1.txt or pandemic_input2.txt
 
+Problem 3 (Symbol Puzzle Game) --------------------------------------------
+
+--Introduction:
+The goal of this algorithm is to take symbols and coordinates and see if their placements would be valid using sudoku rules (1 unique value per row, column, and subsquare). The input file contains the n x n board with n unique symbols and dots representing empty spaces. If the input it meets the sudoku rules, the output will print "The board is valid" and if not, it'll print "The board is invalid".
+
+--Algorithm:
+Core Idea- Track each row, column, and subsquare for each symbol. The valid symbols are read in the second row and each has list of sets (row, column, and subsquare) which get added to when looping through the rows and columns. If any the symbols row, column, or subsquare is already in it's set, the board is invalid. I decided to define the subsquare by dividing the x and y coordinate by the sqrt(n) and only taking the integer value of the quotients. 
+
+Core Functions- 
+is_valid(n, symbols, board):
+This is the heart of this algorithm because it does all of the processing needed to determine whether or not the board is valid. This function uses the math library to find the sqrt(n), then defines seen() which contains the sets for rows, columns, and subsquares the symbol has been in. This then loops through each cell, skipping over empty cells. While moving through each cell, if any undefined symbols are found, the board is ruled invalid.
+Rows and columns are processed directly into the sets and subsquares are processed with the calculating row // sqrt(n) and column // sqrt(n) which only returns the int value of the quotient. If the symbol has already been in one of the sets, it returns the board as invalid and if not it continues through the rest of the board.
+
+General flow- 
+Input data entered via stdin then read by the solve() function which "creates" the board and sets up the valid symbols by reading the second row. The solve function then runs by referencing the is_valid() function on the board. The is_valid() function then will return a determination which is processed to print if the board is or is not valid.
+
+--Interesting Facts:
+- This one was intriguing because I absolutely love sudoku; for fun often times i'll generate a valid boards from an empty grid. I honestly would just rely on visual queues to do this, so this let me take a second back to really think about what my brain is processing subconsciously and turn it into logic. This is where I got the idea to take the int value of x/y divided by root n, because when I do this and am focused on subsquares I see the 9x9 board as being 3x3. 
+
+--How to run (command prompt):
+1) cd C:\Users\... <- this should point to where you saved the files
+2) python3 Q3_Sudoku.py < puzzle_game_input1.txt (For input files 2, 3, & 4, change the file name accordingly)
+
