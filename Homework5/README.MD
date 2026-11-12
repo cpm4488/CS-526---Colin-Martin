@@ -26,3 +26,50 @@ main() builds the tree from the input set, adds 3 random values, deletes 3 value
 --How to run (command prompt):
 1) cd C:\Users\... <- this should point to where you saved the files
 2) python3 Problem1_BST.py
+
+
+
+Problem 3 (Longest Alternating Sequence) --------------------------------------------
+
+--Introduction:
+The goal of this algorithm is to take two sequences of integers, A and B, and find the longest sequence X that alternates between them. The values in X have to increase, every other value has to come from the other sequence, and each value has to come from a later position than the value before it (two values can't come from the same position). The first row of the input file is the size of A, the second row is the size of B, the third row is A, and the fourth row is B.
+ 
+The input file name is typed after the script name, and the desired output is the file name and the length of the longest sequence:
+File Input: longest_seq1.txt
+Longest Sequence: 4
+ 
+--Algorithm:
+Core Idea- Every value asks one question: "what is the longest sequence I can end?" To answer it, a value from A looks for the best sequence that ended in B, in an earlier position, with a smaller value, and adds 1 to its length (B does the same thing looking at A). Going through the positions from left to right means every earlier answer is already finished when it's needed. The slow part is finding "the best sequence below this value", so I keep one segment tree for A and one for B, ordered by value, which can answer that in O(log n) instead of checking every earlier value.
+ 
+Core Functions-
+SegmentTree:
+This is based on the GeeksforGeeks efficient segment tree. The tree is stored in one list where the leaves (one per value) are at tree[n] to tree[2n - 1] and node i's children are 2i and 2i + 1. Each spot holds an entry (length, row, position) for the best sequence ending at that value, and each node above holds the best entry from its whole block of values.
+- update_tree_node(p, value): Keeps the larger entry at spot p, then walks up to the root recomputing each parent as the max of its two children.
+- query(l, r): Returns the best entry from spot l up to but not including spot r. It starts at the two leaves and moves up a level at a time, taking a node by itself when its parent would reach outside the range.
+ 
+best_ending_here(value, row, position, other_tree, spot, previous):
+This is the heart of the algorithm. It queries the other row's tree for the best entry below this value, saves which value it came from in previous, and returns that length + 1. If nothing smaller has been seen, the query returns an empty entry with length 0, so the value starts a new sequence of length 1.
+ 
+longest_alternating(A, B):
+This gives each different value a spot in the trees (smallest value gets spot 0), then loops through every position. At each position it looks up the A value and the B value first, then adds both to their trees. Doing both lookups before either add is what keeps two values from the same position from being used together. It keeps track of the best entry seen overall.
+ 
+build_sequence(A, B, previous, best):
+This starts at the end of the best sequence and follows the previous links backwards until it reaches the start, then reverses the list.
+ 
+General Flow-
+solve() reads the input with read_input(), runs longest_alternating() to get the longest sequence, and prints the file name and the length of the sequence.
+ 
+--Interesting Facts:
+- The simple way to solve this compares every value to every earlier value in the other sequence, which is O(n^2). The segment tree version is O(n log n) and runs extremely efficiently. I used claude to generate a larger test file (longest_seq7.txt, 25,000 values in A and 30,000 in B) to check how it scales, it ran in about half a second (insane!), with a longest sequence of 301.
+- The segment tree is changed from the GeeksforGeeks version (https://www.geeksforgeeks.org/dsa/segment-tree-efficient-implementation/) in a few ways:
+ a) It keeps the max instead of the sum 
+ b) Update keeps the larger entry instead of overwriting (two values in the same sequence can be equal)
+ c) I made it a class so A and B can each have their own tree, and there's no build step because the trees start empty and fill up as the positions are read.
+- The query in the article leaves out the right end of the range, which works out perfectly here since query(0, spot) is exactly "every value smaller than this one".
+- Some inputs (longest_seq3.txt and longest_seq4.txt) have more than one sequence of the longest length. The sequence found depends on how ties are broken, but the length is always the same.
+ 
+--How to run (command prompt):
+1) cd C:\Users\... <- this should point to where you saved the files
+2) python3 Problem3_LongestAlternating.py longest_seq1.txt (For input files 2, 3, 4, 5, and 6, change the file name accordingly)
+   Paste below this to run all example problems at once: 
+	python3 Problem3_LongestAlternating.py longest_seq1.txt longest_seq2.txt longest_seq3.txt longest_seq4.txt longest_seq5.txt longest_seq6.txt
