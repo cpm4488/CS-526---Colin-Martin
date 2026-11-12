@@ -27,7 +27,33 @@ main() builds the tree from the input set, adds 3 random values, deletes 3 value
 1) cd C:\Users\... <- this should point to where you saved the files
 2) python3 Problem1_BST.py
 
+Problem 2 (Morse Code Vowels) --------------------------------------------
 
+--Introduction:
+Count the number of ways a sequence of dots and dashes can be split into only vowels (E ., A .-, I .., O ---, U ..-), using every symbol. The input file has the number of symbols and the symbols on two rows. The output is the file name and the number of combinations.
+
+--Algorithm:
+Core Idea- 
+This uses the table from class, with each symbol as a column and each vowel (E ., A .-, I .., O ---, U ..-) as a row. Going through the columns left to right, each cell counts the number of ways to spell everything up to that column if the last letter is that vowel. If the symbols ending at that column match the vowel's code, the cell copies the total from the column from just before vowel started, otherwise the cell is 0. Adding up a column gives the total number of ways to get to that column, and the total of the last column is the answer.
+
+Core Functions-
+count_vowel_combinations(symbols):
+This is the heart of the algorithm. It keeps a list called total where total[column] is the number of ways to spell everything up to that column. total[0] starts at 1 because there is one way to spell nothing. For every column it checks all 5 vowels: start is the column just before where a vowel would begin at (column - the length of its code), and if the symbols from after start through the column column match the code, total[start] is added to total[column]. The function returns the total of the last column.
+read_input(source): Reads the number of symbols, then the symbols.
+
+General Flow-
+solve() opens the file, reads it with read_input(), and prints the file name and the number of combinations from count_vowel_combinations().
+
+--Interesting Facts:
+- I only keep the total row of the table instead of every cell. Each cell is just a copy of an earlier total, so it can be added straight into the column's total.
+- The longest vowel code is 3 symbols, so each column only ever looks back 1, 2, or 3 columns.
+- vowel_input3.txt is 0 because of the two dashes at columns 13 and 14 (.--.). A dash can only be the end of an A or U (which need a dot right before the dash) or part of an O (which needs three dashes in a row), so nothing fits there. Every column after that copies a 0, so the answer stays 0 even though the first 13 symbols can be read 6 different ways.
+
+--How to run (command prompt):
+1) cd C:\Users\... <- this should point to where you saved the files
+2) python3 Problem2_Vowels.py vowel_input1.txt (For input files 2, 3, and 4, change the file name accordingly)
+   Paste below this to run all example problems at once:
+	python3 Problem2_Vowels.py vowel_input1.txt vowel_input2.txt vowel_input3.txt vowel_input4.txt
 
 Problem 3 (Longest Alternating Sequence) --------------------------------------------
 
